@@ -31,9 +31,9 @@ public class Pessoa {
 	public LocalDate getNascimento() {
 		return this.birthday;
 	}
-	
+
 	public int getIdade() {
-		return this.birthday.getYear();		
+		return this.birthday.getYear();
 	}
 
 	public void setIdade(LocalDate idade) {
@@ -70,7 +70,7 @@ public class Pessoa {
 	@Override
 	public String toString() {
 		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		return this.getNome() + ";" + this.getNascimento().format(formater) + ";" + this.getEmail() + ";" + this.getSocial() + ";"
-				+ this.seTrabalha();
+		return this.getNome() + ";" + this.getNascimento().format(formater) + ";" + this.getEmail() + ";"
+				+ this.getSocial() + ";" + this.seTrabalha();
 	}
 }

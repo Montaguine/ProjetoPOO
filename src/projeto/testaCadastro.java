@@ -9,7 +9,7 @@ public class TestaCadastro extends InterfaceCadastro {
 		p.setEmail("tobias@email.to");
 		p.setTrabalho(false);
 		p.setSocial("@tobias");
-		System.out.println(p.toString()+"\n");
+		System.out.println(p.toString() + "\n");
 		menu();
 	}
 }
