@@ -45,14 +45,14 @@ public class InterfaceCadastro {
 	}
 
 	public static void menu() {
-		System.out.println("Cadastro de " + Pessoa.class.getSimpleName() + "\n\n");
+		System.out.println("\nCadastro de " + Pessoa.class.getSimpleName() + "\n\n");
 		System.out.println("(0)sair");
 		System.out.println("(1)inserir " + Pessoa.class.getSimpleName());
 		System.out.println("(2)listar  " + Pessoa.class.getSimpleName());
 		System.out.println("(3)buscar  " + Pessoa.class.getSimpleName());
 		System.out.println("(4)deletar " + Pessoa.class.getSimpleName());
 		int menu = 0;
-		CadastraPessoa arqAux = new CadastraPessoa();
+		ManipulaArquivo arqAux = new ManipulaArquivo();
 		List<Pessoa> pessoas = arqAux.lista();
 
 		try {
@@ -70,6 +70,20 @@ public class InterfaceCadastro {
 		if (menu == 2) {
 			for (Pessoa p : pessoas) {
 				System.out.println(p);
+			}
+			menu();
+		}
+
+		if (menu == 3) {
+			System.out.println("Quem?");
+			INP.nextLine();
+			String busca = INP.nextLine();
+			for (Pessoa p : pessoas) {
+				if (busca.equals(p.getNome())
+						|| busca.equals(p.getEmail()) 
+						|| busca.equals(p.getSocial())) {
+					System.out.println("\nImprimindo resultado da busca:\n" + p.toString());
+				}
 			}
 			menu();
 		}

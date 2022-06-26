@@ -11,6 +11,5 @@ public class TestaCadastro extends InterfaceCadastro {
 		p.setSocial("@tobias");
 		System.out.println(p.toString() + "\n");
 		menu();
-
 	}
 }

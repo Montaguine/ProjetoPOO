@@ -11,12 +11,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CadastraPessoa {
+public class ManipulaArquivo {
 	private Path arquivo;
 	private Charset encode;
 
-	public CadastraPessoa() {
-		Path pasta = Paths.get("ProjetoPOO");
+	public ManipulaArquivo() {
+		Path pasta = Paths.get("Cadastros");
 		this.arquivo = pasta.resolve("cadastros.csv");
 		this.encode = Charset.forName("UTF-8");
 		try {
