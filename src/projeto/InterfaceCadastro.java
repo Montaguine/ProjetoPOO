@@ -2,11 +2,13 @@ package projeto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Scanner;
 
 public class InterfaceCadastro {
 
 	public static final Scanner INP = new Scanner(System.in);
+	static Pessoa aux = new Pessoa();
 
 	public static Pessoa novaPessoa() {
 		Pessoa p = new Pessoa();
@@ -50,6 +52,8 @@ public class InterfaceCadastro {
 		System.out.println("(3)buscar  " + Pessoa.class.getSimpleName());
 		System.out.println("(4)deletar " + Pessoa.class.getSimpleName());
 		int menu = 0;
+		CadastraPessoa arqAux = new CadastraPessoa();
+		List<Pessoa> pessoas = arqAux.lista();
 
 		try {
 			menu = opcao();
@@ -59,7 +63,15 @@ public class InterfaceCadastro {
 		}
 
 		if (menu == 1) {
-			novaPessoa();
+			arqAux.insereNoFim(novaPessoa());
+			menu();
+		}
+
+		if (menu == 2) {
+			for (Pessoa p : pessoas) {
+				System.out.println(p);
+			}
+			menu();
 		}
 	}
 }

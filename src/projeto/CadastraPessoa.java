@@ -16,8 +16,8 @@ public class CadastraPessoa {
 	private Charset encode;
 
 	public CadastraPessoa() {
-		Path pasta = Paths.get("arquivos", "dados");
-		this.arquivo = pasta.resolve("contato.csv");
+		Path pasta = Paths.get("ProjetoPOO");
+		this.arquivo = pasta.resolve("cadastros.csv");
 		this.encode = Charset.forName("UTF-8");
 		try {
 			if (!Files.exists(pasta)) {
@@ -59,7 +59,7 @@ public class CadastraPessoa {
 			dadosArquivo = Files.readAllLines(this.arquivo, this.encode);
 		} catch (IOException e) {
 			System.out.println(e);
-			throw new RuntimeException("Erro: problemas ao abrir o arquivo:");
+			throw new RuntimeException("Erro! Problemas ao abrir o arquivo:");
 		}
 		for (String linha : dadosArquivo) {
 			String[] campos = linha.split(";");
