@@ -2,7 +2,7 @@ package projeto;
 
 import java.util.Scanner;
 
-public class Cadastro {
+public class InterfaceCadastro {
 
 	public static final Scanner INP = new Scanner(System.in);
 
@@ -14,7 +14,7 @@ public class Cadastro {
 	}
 
 	public static void menu() {
-		System.out.println("Cadastro de " + Pessoa.class.getSimpleName()+"\n\n");
+		System.out.println("Cadastro de " + Pessoa.class.getSimpleName() + "\n\n");
 		System.out.println("(0)sair");
 		System.out.println("(1)inserir " + Pessoa.class.getSimpleName());
 		System.out.println("(2)listar  " + Pessoa.class.getSimpleName());

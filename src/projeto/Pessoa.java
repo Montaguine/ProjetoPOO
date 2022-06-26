@@ -1,13 +1,17 @@
 package projeto;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Pessoa {
-	private final String nome;
-	private final LocalDate birthday;
+	private String nome;
+	private LocalDate birthday;
 	private String redeSocial;
 	private String email;
 	private boolean trabalha;
+
+	public Pessoa() {
+	}
 
 	public Pessoa(String nome, LocalDate nascimento) {
 		if (nascimento.getYear() > LocalDate.now().getYear())
@@ -16,31 +20,27 @@ public class Pessoa {
 		this.birthday = nascimento;
 	}
 
-	public Pessoa(String nome, LocalDate nascimento, String email, String redeSocial) {
-		if (nascimento.getYear() > LocalDate.now().getYear())
-			throw new IllegalArgumentException("Data inválida");
-		this.nome = nome;
-		this.birthday = nascimento;
-		this.redeSocial = redeSocial;
-		this.email = email;
-	}
-
-	public Pessoa(String nome, LocalDate nascimento, String email, boolean emprego, String redeSocial) {
-		if (nascimento.getYear() > LocalDate.now().getYear())
-			throw new IllegalArgumentException("Data inválida");
-		this.nome = nome;
-		this.birthday = nascimento;
-		this.redeSocial = redeSocial;
-		this.email = email;
-		this.trabalha = emprego;
-	}
-
 	public String getNome() {
 		return this.nome;
 	}
 
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public LocalDate getNascimento() {
+		return this.birthday;
+	}
+	
 	public int getIdade() {
-		return this.birthday.getYear();
+		return this.birthday.getYear();		
+	}
+
+	public void setIdade(LocalDate idade) {
+		if (idade.getYear() > LocalDate.now().getYear())
+			throw new IllegalArgumentException("Data inválida");
+
+		this.birthday = idade;
 	}
 
 	public String getSocial() {
@@ -63,13 +63,14 @@ public class Pessoa {
 		return this.trabalha;
 	}
 
-	public void setTrabalha(boolean trabalha) {
+	public void setTrabalho(boolean trabalha) {
 		this.trabalha = trabalha;
 	}
 
 	@Override
 	public String toString() {
-		return this.getNome() + ";" + this.getIdade() + ";" + this.getEmail() + ";" + this.getSocial() + ";"
+		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		return this.getNome() + ";" + this.getNascimento().format(formater) + ";" + this.getEmail() + ";" + this.getSocial() + ";"
 				+ this.seTrabalha();
 	}
 }
