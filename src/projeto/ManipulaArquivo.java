@@ -32,6 +32,16 @@ public class ManipulaArquivo {
 		}
 	}
 
+	public String leUmaLinha() {
+		try {
+			BufferedReader leitor = Files.newBufferedReader(this.arquivo);
+			return leitor.readLine();
+		} catch (IOException e) {
+			System.out.println(e);
+			throw new RuntimeException("Erro: problemas ao abrir o arquivo:");
+		}
+	}
+
 	public void insereNoFim(Pessoa c) {
 		String aux = c.toString() + "\n";
 		try {
@@ -42,10 +52,14 @@ public class ManipulaArquivo {
 		}
 	}
 
-	public String leUmaLinha() {
+	public void removeLinha(List<Pessoa> l) {
+		String aux = l.toString();
+		aux = aux.replace("[", "");
+		aux = aux.replace("]", "");
+		aux = aux.replace(", ", "\n") + "\n";
+		System.out.println(aux);
 		try {
-			BufferedReader leitor = Files.newBufferedReader(this.arquivo);
-			return leitor.readLine();
+			Files.writeString(this.arquivo, aux, StandardOpenOption.TRUNCATE_EXISTING);
 		} catch (IOException e) {
 			System.out.println(e);
 			throw new RuntimeException("Erro: problemas ao abrir o arquivo:");

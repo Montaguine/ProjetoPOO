@@ -10,7 +10,19 @@ public class InterfaceCadastro {
 	public static final Scanner INP = new Scanner(System.in);
 	static Pessoa aux = new Pessoa();
 
-	public static Pessoa novaPessoa() {
+	private static Pessoa buscaPessoa(List<Pessoa> lista) {
+		System.out.println("Quem?");
+		INP.nextLine();
+		String busca = INP.nextLine();
+		for (Pessoa p : lista) {
+			if (busca.equals(p.getNome()) || busca.equals(p.getEmail()) || busca.equals(p.getSocial())) {
+				return p;
+			}
+		}
+		return null;
+	}
+
+	private static Pessoa novaPessoa() {
 		Pessoa p = new Pessoa();
 		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		System.out.println("Digite o nome da pessoa:\n");
@@ -37,7 +49,7 @@ public class InterfaceCadastro {
 		return p;
 	}
 
-	public static int opcao() {
+	private static int opcao() {
 		int opcao = INP.nextInt();
 		if (opcao > 4 || opcao < 0)
 			throw new IllegalArgumentException("Digite uma opção válida");
@@ -73,18 +85,17 @@ public class InterfaceCadastro {
 			}
 			menu();
 		}
-
 		if (menu == 3) {
-			System.out.println("Quem?");
-			INP.nextLine();
-			String busca = INP.nextLine();
-			for (Pessoa p : pessoas) {
-				if (busca.equals(p.getNome())
-						|| busca.equals(p.getEmail()) 
-						|| busca.equals(p.getSocial())) {
-					System.out.println("\nImprimindo resultado da busca:\n" + p.toString());
-				}
-			}
+			aux = buscaPessoa(pessoas);
+			System.out.println("\nImprimindo resultado da busca:\n" + aux.toString());
+			menu();
+		}
+		if (menu == 4) {
+			aux = buscaPessoa(pessoas);
+			int index = pessoas.indexOf(aux);
+			pessoas.remove(index);
+			arqAux.lista().remove(index);
+			arqAux.removeLinha(pessoas);
 			menu();
 		}
 	}
