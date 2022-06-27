@@ -2,16 +2,17 @@ package projeto;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.List;
 import java.util.Scanner;
 
 public class InterfaceCadastro {
 
-	public static final Scanner INP = new Scanner(System.in);
-	static Pessoa aux = new Pessoa();
+	private static final Scanner INP = new Scanner(System.in);
+	private static Pessoa aux = new Pessoa();
 
 	private static Pessoa buscaPessoa(List<Pessoa> lista) {
-		System.out.println("Quem?");
+		System.out.println("Insira nome, email ou rede social de quem está procurando:");
 		INP.nextLine();
 		String busca = INP.nextLine();
 		for (Pessoa p : lista) {
@@ -22,21 +23,30 @@ public class InterfaceCadastro {
 		return null;
 	}
 
+	private static LocalDate data() {
+		try {
+			DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+			System.out.println("Digite o dia de nascimento da pessoa:\n");
+			String dia = INP.next();
+			System.out.println("Digite o mês de nascimento da pessoa:\n");
+			String mes = INP.next();
+			System.out.println("Digite o ano de nascimento da pessoa:\n");
+			String ano = INP.next();
+			return LocalDate.parse(dia + "/" + mes + "/" + ano, formater);
+		} catch (DateTimeParseException e) {
+			System.out.println(
+					"Data inválida. \nTente dois dígitos para dia, dois dígitos para mês e quatro dígitos para ano");
+			return data();
+		}
+	}
+
 	private static Pessoa novaPessoa() {
 		Pessoa p = new Pessoa();
-		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		System.out.println("Digite o nome da pessoa:\n");
 		INP.nextLine();
 		String nome = INP.nextLine();
 		p.setNome(nome);
-		System.out.println("Digite o dia de nascimento da pessoa:\n");
-		String dia = INP.next();
-		System.out.println("Digite o mês de nascimento da pessoa:\n");
-		String mes = INP.next();
-		System.out.println("Digite o ano de nascimento da pessoa:\n");
-		String ano = INP.next();
-		LocalDate data = LocalDate.parse(dia + "/" + mes + "/" + ano, formater);
-		p.setIdade(data);
+		p.setIdade(data());
 		System.out.println("Digite o email da pessoa:\n");
 		String email = INP.next();
 		p.setEmail(email);

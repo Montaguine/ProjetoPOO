@@ -1,6 +1,6 @@
 package projeto;
 
-import java.io.BufferedReader;
+//import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -32,15 +32,12 @@ public class ManipulaArquivo {
 		}
 	}
 
-	public String leUmaLinha() {
-		try {
-			BufferedReader leitor = Files.newBufferedReader(this.arquivo);
-			return leitor.readLine();
-		} catch (IOException e) {
-			System.out.println(e);
-			throw new RuntimeException("Erro: problemas ao abrir o arquivo:");
-		}
-	}
+	/*
+	 * public String getLinha() { try { BufferedReader leitor =
+	 * Files.newBufferedReader(this.arquivo); String aux = leitor.toString(); return
+	 * leitor.readLine(); } catch (IOException e) { System.out.println(e); throw new
+	 * RuntimeException("Erro: problemas ao abrir o arquivo:"); } }
+	 */
 
 	public void insereNoFim(Pessoa c) {
 		String aux = c.toString() + "\n";
