@@ -9,18 +9,10 @@ import java.util.Scanner;
 public class InterfaceCadastro {
 
 	private static final Scanner INP = new Scanner(System.in);
-	private static Pessoa aux = new Pessoa();
 
-	private static Pessoa buscaPessoa(List<Pessoa> lista) {
-		System.out.println("Insira nome, email ou rede social de quem está procurando:");
-		INP.nextLine();
-		String busca = INP.nextLine();
-		for (Pessoa p : lista) {
-			if (busca.equals(p.getNome()) || busca.equals(p.getEmail()) || busca.equals(p.getSocial())) {
-				return p;
-			}
-		}
-		return null;
+	private static int linha() {
+		System.out.println("Digite o indice desejado:\n");
+		return INP.nextInt();
 	}
 
 	private static LocalDate data() {
@@ -67,15 +59,13 @@ public class InterfaceCadastro {
 	}
 
 	public static void menu() {
-		System.out.println("\nCadastro de " + Pessoa.class.getSimpleName() + "\n\n");
+		System.out.println("\nCadastro de Pessoa\n");
 		System.out.println("(0)sair");
-		System.out.println("(1)inserir " + Pessoa.class.getSimpleName());
-		System.out.println("(2)listar  " + Pessoa.class.getSimpleName());
-		System.out.println("(3)buscar  " + Pessoa.class.getSimpleName());
-		System.out.println("(4)deletar " + Pessoa.class.getSimpleName());
+		System.out.println("(1)inserir Pessoa");
+		System.out.println("(2)listar Pessoa");
+		System.out.println("(3)buscar Pessoa");
+		System.out.println("(4)deletar Pessoa");
 		int menu = 0;
-		ManipulaArquivo arqAux = new ManipulaArquivo();
-		List<Pessoa> pessoas = arqAux.lista();
 
 		try {
 			menu = opcao();
@@ -85,28 +75,31 @@ public class InterfaceCadastro {
 		}
 
 		if (menu == 1) {
-			arqAux.insereNoFim(novaPessoa());
+			ManipulaArquivo arqAux = new ManipulaArquivo();
+			arqAux.insert(novaPessoa());
 			menu();
 		}
 
 		if (menu == 2) {
+			ManipulaArquivo arqAux = new ManipulaArquivo();
+			List<Pessoa> pessoas = arqAux.list();
+
 			for (Pessoa p : pessoas) {
 				System.out.println(p);
 			}
 			menu();
 		}
+
 		if (menu == 3) {
-			aux = buscaPessoa(pessoas);
-			System.out.println("\nImprimindo resultado da busca:\n" + aux.toString());
+			ManipulaArquivo arqAux = new ManipulaArquivo();
+			System.out.println(arqAux.get(linha()));
 			menu();
 		}
 		if (menu == 4) {
-			aux = buscaPessoa(pessoas);
-			int index = pessoas.indexOf(aux);
-			pessoas.remove(index);
-			arqAux.lista().remove(index);
-			arqAux.removeLinha(pessoas);
+			ManipulaArquivo arqAux = new ManipulaArquivo();
+			arqAux.delete(linha());
 			menu();
 		}
 	}
+
 }

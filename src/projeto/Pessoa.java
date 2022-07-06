@@ -14,7 +14,7 @@ public class Pessoa {
 	}
 
 	public Pessoa(String nome, LocalDate nascimento) {
-		if (nascimento.getYear() > LocalDate.now().getYear())
+		if (nascimento.isAfter(LocalDate.now()))
 			throw new IllegalArgumentException("Data inválida");
 		this.nome = nome;
 		this.birthday = nascimento;

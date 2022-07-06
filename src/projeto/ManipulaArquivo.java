@@ -32,14 +32,7 @@ public class ManipulaArquivo {
 		}
 	}
 
-	/*
-	 * public String getLinha() { try { BufferedReader leitor =
-	 * Files.newBufferedReader(this.arquivo); String aux = leitor.toString(); return
-	 * leitor.readLine(); } catch (IOException e) { System.out.println(e); throw new
-	 * RuntimeException("Erro: problemas ao abrir o arquivo:"); } }
-	 */
-
-	public void insereNoFim(Pessoa c) {
+	public void insert(Pessoa c) {
 		String aux = c.toString() + "\n";
 		try {
 			Files.writeString(this.arquivo, aux, StandardOpenOption.APPEND);
@@ -49,21 +42,49 @@ public class ManipulaArquivo {
 		}
 	}
 
-	public void removeLinha(List<Pessoa> l) {
-		String aux = l.toString();
-		aux = aux.replace("[", "");
-		aux = aux.replace("]", "");
-		aux = aux.replace(", ", "\n") + "\n";
-		System.out.println(aux);
+	public Pessoa get(int l) {
+		List<String> dadosArquivo;
 		try {
-			Files.writeString(this.arquivo, aux, StandardOpenOption.TRUNCATE_EXISTING);
+			dadosArquivo = Files.readAllLines(this.arquivo, this.encode);
 		} catch (IOException e) {
 			System.out.println(e);
-			throw new RuntimeException("Erro: problemas ao abrir o arquivo:");
+			throw new RuntimeException("Erro! Problemas ao abrir o arquivo:");
+		}
+		try {
+			String objeto = dadosArquivo.get(l);
+			String[] campos = objeto.split(";");
+			Pessoa c = new Pessoa();
+			// formato: Nome;Idade;Email;RedeSocial;Empregado
+			c.setNome(campos[0]);
+			String[] data = campos[1].split("/");
+			c.setIdade(LocalDate.of(Integer.parseInt(data[2]), Integer.parseInt(data[1]), Integer.parseInt(data[0])));
+			c.setEmail(campos[2]);
+			c.setSocial(campos[3]);
+			c.setTrabalho(Boolean.parseBoolean(campos[4]));
+			return c;
+		} catch (IndexOutOfBoundsException e) {
+			throw new MinhaException("O indice digitado não existe:");
 		}
 	}
 
-	public List<Pessoa> lista() {
+	public void delete(int linha) {
+		List<String> dadosArquivo;
+		try {
+			dadosArquivo = Files.readAllLines(this.arquivo, this.encode);
+			dadosArquivo.remove(linha);
+		} catch (IOException e) {
+			System.out.println(e);
+			throw new RuntimeException("Erro! Problemas ao abrir o arquivo:");
+		}
+		try {
+			Files.write(this.arquivo, dadosArquivo, StandardOpenOption.TRUNCATE_EXISTING);
+		} catch (IOException e) {
+			System.out.println(e);
+			throw new RuntimeException("Erro! Problemas ao salvar arquivo:");
+		}
+	}
+
+	public List<Pessoa> list() {
 		List<String> dadosArquivo;
 		List<Pessoa> cadastros = new ArrayList<>();
 		try {
