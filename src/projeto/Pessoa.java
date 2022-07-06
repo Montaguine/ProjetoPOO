@@ -70,7 +70,7 @@ public class Pessoa {
 	@Override
 	public String toString() {
 		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-		return "Nome: " + this.getNome() + ";" + "Data de nascimento: " + this.getNascimento().format(formater) + ";" + "Email: " + this.getEmail() + ";"
-				+ "Rede social: " + this.getSocial() + ";" + "Trabalha? " + this.seTrabalha();
+		return this.getNome() + ";" + this.getNascimento().format(formater) + ";" + this.getEmail() + ";"
+			+ this.getSocial() + ";" + this.seTrabalha();
 	}
 }
