@@ -71,6 +71,6 @@ public class Pessoa {
 	public String toString() {
 		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 		return this.getNome() + ";" + this.getNascimento().format(formater) + ";" + this.getEmail() + ";"
-			+ this.getSocial() + ";" + this.seTrabalha();
+				+ this.getSocial() + ";" + this.seTrabalha();
 	}
 }
